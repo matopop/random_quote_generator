@@ -42,13 +42,14 @@ function Visual() {
 
 					{copied ?
 						<button onClick={() =>
-							(navigator.clipboard.writeText(quote))
+							navigator.clipboard.writeText(quote)
 						}
 							className="hidden md:block absolute p-1 left-20 bottom-6">Copied!</button>
 						:
-						<img src={"./white-copy.png"} onClick={() =>
-							(navigator.clipboard.writeText(quote))
-								(setCopied(true))
+						<img src={"./white-copy.png"} onClick={() => {
+							navigator.clipboard.writeText(quote);
+							setCopied(true);
+							}	
 						}
 							className="absolute h-10 w-10 p-1 left-20 bottom-5 transition-colors duration-500 ease-in-out transform 
 							hover:scale-110 cursor-pointer" alt="Copy" />
