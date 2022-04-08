@@ -6,5 +6,4 @@ A project written in ReactJS + Tailwind
 
 ### `npm start`
 
-
-Enjoy
+That's all :)
