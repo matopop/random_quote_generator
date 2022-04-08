@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import quotation from './Quotation.js'
+
 
 function Visual() {
 
 	const [copied, setCopied] = useState(false);
-	const [quote, setQuote] = useState("o");
+	const [quote, setQuote] = useState("");
 	const [author, setAuthor] = useState(null);
 
 	async function GetQuotes() {
-			fetch(
-				"https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json"
-			)
-				.then((res) => res.json())
-				.then((data) => {
-					let dataQ = data.quotes;
-					let ranNum = Math.floor(Math.random() * dataQ.length);
-					let ranQ = dataQ[ranNum];
-					setQuote(ranQ.quote);
-					setAuthor(ranQ.author);
-					console.log(quote.length)
-				});
-			return ({
-				"quote": quote,
-				"author": author
-			})
+		fetch(
+			"https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json"
+		)
+			.then((res) => res.json())
+			.then((data) => {
+				let filtered = data.quotes.filter(element => element.quote.length < 65);
+				let randomNumber = Math.floor(Math.random() * filtered.length);
+				setQuote(filtered[randomNumber].quote);
+				setAuthor(filtered[randomNumber].author);
+			});
 	}
+
 
 	useEffect(() => {
 		GetQuotes();
@@ -37,6 +34,7 @@ function Visual() {
 
 					<img src={"./black-quote.png"} className="h-2 w-2 object-cover lg:h-12 lg:w-12 md:h-8 md:w-8 sm:h-4 sm:w-4" alt="" />
 					<h2 className="text-sm sm:text-lg md:text-xl lg:text-3xl">{quote}</h2>
+					<h1 className="absolute right-8 text-sm sm:text-md md:text-lg lg:text-xl">- {author}</h1>
 
 					<img src={"./white-twitter.png"} onClick={() =>
 						window.open("https://twitter.com/intent/tweet?text=Hello%20world", "_blank")
@@ -60,7 +58,7 @@ function Visual() {
 					<img src={"./white-refresh.png"} onClick={() =>
 						GetQuotes()
 					}
-						className="absolute h-11 w-11 p-1 right-5 bottom-5 transition-colors duration-500 ease-in-out transform 
+						className="animate-spin-slow absolute h-11 w-11 p-1 right-5 bottom-5 transition-colors duration-500 ease-in-out transform 
 						hover:scale-110 cursor-pointer"/>
 				</div>
 			</div>
@@ -78,11 +76,11 @@ function Visual() {
 function App() {
 	return (
 		<>
-			<body className="h-screen bg-red-300" >
-				<Visual />
-			</body>
+
+			<div className="h-screen bg-red-300" >
+				<Visual className="h-screen bg-red-300" />
+			</div>
 		</>
 	);
 }
-
 export default App;
