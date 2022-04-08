@@ -77,7 +77,7 @@ function App() {
 		<>
 
 			<div className="h-screen bg-red-300" >
-				<Visual className="h-screen bg-red-300" />
+				<Visual />
 			</div>
 		</>
 	);
