@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import quotation from './Quotation.js'
-
+import './index.css';
 
 function Visual() {
 
